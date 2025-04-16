@@ -18,6 +18,8 @@
 #include "ScriptMgr.h"
 #include "GameTime.h"
 #include "Player.h"
+#include "WorldSession.h"
+#include "WorldSessionMgr.h"
 
 constexpr uint32 MapAlteracValley = 30;
 
@@ -929,7 +931,7 @@ void CFBG::SendMessageQueue(BattlegroundQueue* bgQueue, Battleground* bg, PvPDif
                 std::string msg = Acore::StringFormat("{} |cffffffffHas Joined|r |cffff0000{}|r|cffffffff(|r|cff00ffff{}|r|cffffffff/|r|cff00ffff{}|r|cffffffff)|r",
                     leader->GetPlayerName(), bg->GetName(), qTotal, MinPlayers);
 
-                for (auto const& session : sWorld->GetAllSessions())
+                for (auto const& session : sWorldSessionMgr->GetAllSessions())
                 {
                     if (Player* player = session.second->GetPlayer())
                     {

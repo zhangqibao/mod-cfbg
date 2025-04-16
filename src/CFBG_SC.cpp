@@ -110,7 +110,7 @@ class CFBG_Player : public PlayerScript
 public:
     CFBG_Player() : PlayerScript("CFBG_Player") { }
 
-    void OnLogin(Player* player) override
+    void OnPlayerLogin(Player* player) override
     {
         if (!sCFBG->IsEnableSystem())
         {
@@ -123,7 +123,7 @@ public:
         }
     }
 
-    bool CanJoinInBattlegroundQueue(Player* player, ObjectGuid /*BattlemasterGuid*/ , BattlegroundTypeId /*BGTypeID*/, uint8 joinAsGroup, GroupJoinBattlegroundResult& err) override
+    bool OnPlayerCanJoinInBattlegroundQueue(Player* player, ObjectGuid /*BattlemasterGuid*/ , BattlegroundTypeId /*BGTypeID*/, uint8 joinAsGroup, GroupJoinBattlegroundResult& err) override
     {
         if (!sCFBG->IsEnableSystem())
             return true;
@@ -143,7 +143,7 @@ public:
         return true;
     }
 
-    void OnBeforeUpdate(Player* player, uint32 diff) override
+    void OnPlayerBeforeUpdate(Player* player, uint32 diff) override
     {
         if (timeCheck <= diff)
         {
@@ -154,7 +154,7 @@ public:
             timeCheck -= diff;
     }
 
-    void OnBeforeSendChatMessage(Player* player, uint32& type, uint32& lang, std::string& /*msg*/) override
+    void OnPlayerBeforeSendChatMessage(Player* player, uint32& type, uint32& lang, std::string& /*msg*/) override
     {
         if (!player || !sCFBG->IsEnableSystem())
             return;
@@ -176,7 +176,7 @@ public:
         lang = LANG_UNIVERSAL;
     }
 
-    bool OnReputationChange(Player* player, uint32 factionID, int32& standing, bool /*incremental*/) override
+    bool OnPlayerReputationChange(Player* player, uint32 factionID, int32& standing, bool /*incremental*/) override
     {
         uint32 repGain = player->GetReputation(factionID);
         TeamId teamId = player->GetTeamId(true);
